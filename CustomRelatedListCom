@@ -1,0 +1,13 @@
+<apex:component controller="ComponentController" >
+    <apex:attribute name="parentObj" description="" type="Sobject" required="true"  assignTo="{!pObj}"/>
+    <apex:attribute name="relName" description="" type="String" required="true" assignTo="{!rName}" />
+    <apex:attribute name="FieldsToDisplay1" description="List Of Fields To View." type="String" required="true" assignTo="{!FieldsToDisplay}" />
+        <apex:pageBlock >
+        <apex:outputText value="{!RecName}"></apex:outputText>
+        <apex:pageBlockTable value="{!recs}" var="c">
+            <apex:repeat value="{!FieldsToShowVFPageArrayFinal}" var="f">
+                <apex:column value="{!c[f]}"/>
+            </apex:repeat>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:component>
