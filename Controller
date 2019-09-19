@@ -1,0 +1,48 @@
+public class ComponentController{
+
+        public Sobject pObj{get;set;}
+        public string rName{get;set;}
+        public List<String> FieldsToShowVFPageArrayFinal{get;set;}
+        public List<sObject> sObjectList {get;set;}
+        public List<String> Fields = new List<String>();
+        public String RecName{get;set;}
+        public String ObjectName;
+        public String  FieldsToDisplay{get;set;}  
+        
+    public componentController(){
+
+    FieldsToShowVFPageArrayFinal = new List<String>();
+    
+    }
+    
+   public List<Sobject> recs {
+    get {
+    ObjectName=pObj.getSobjectType().getDescribe().getName();
+     //return dataBase.query('SELECT name,(select id,name FROM contacts) from Accounts where id =\'' + pObj.Id + '\''); 
+
+     sObjectList = new  List<sObject>();
+     SObject[] childRecordsFromParent;
+     String [] FieldsToSearchArray = FieldsToDisplay.Split('\\[');
+                        String [] FieldsToSearchArray1 = FieldsToSearchArray[1].Split('\\]');
+                        String FieldsToSearchh = String.ValueOf(FieldsToSearchArray1[0]); 
+                        
+     String[] ListColNames = FieldsToSearchh.Split(',');
+     FieldsToShowVFPageArrayFinal = new List<String>(); 
+     
+    for(String colNames :ListColNames ){
+        FieldsToShowVFPageArrayFinal.add(colNames.Trim());
+    }
+
+    String SOQL = 'SELECT name,(select ' + FieldsToSearchh + ' FROM ' + rname + ') from '+ ObjectName+' where id =\'' + pObj.Id + '\'';
+    
+    sObjectList = dataBase.query(SOQL);    
+
+     for(sObject sObj : sObjectList){
+         RecName =(String) sObj.get('Name');
+         childRecordsFromParent = sObj.getSObjects(rname);  
+     }
+    return childRecordsFromParent;
+     
+      }
+     }   
+    }
