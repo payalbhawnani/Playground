@@ -1,0 +1,5 @@
+<apex:page standardController="Account">
+  
+<c:RelatedList parentObj="{!Account}" relName="Contacts" FieldsToDisplay1="{!$ObjectType.Contact.FieldSets.FieldToDisplay}"  />
+
+</apex:page>
